@@ -22,9 +22,9 @@ exports.KEYS_FILENAME = 'keys.json';
 exports.rpcInterface = '127.0.0.1';
 exports.rpcPort = '6552';
 
-// witness configuration
+// chef configuration
 
-exports.admin_email='witness';
-exports.from_email='witness';
+exports.admin_email='chef';
+exports.from_email='chef';
 
 console.log('finished headless conf');

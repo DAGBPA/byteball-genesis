@@ -1,2 +1,2 @@
-# byteball-genesis
-Start byteball from genesis unit
+# dag-pizza-genesis
+Start DAG Pizza network from genesis unit

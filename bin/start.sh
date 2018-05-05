@@ -8,7 +8,7 @@ pm2 start  ../nodes/hub/start.js --name hub
 
 for i in {1..12}
 do
-    pm2 start ../nodes/witness$i/start.js --name witness$i
+    pm2 start ../nodes/chef$i/start.js --name chef$i
 done
 
 pm2 start ../nodes/explorer/explorer.js --name explorer

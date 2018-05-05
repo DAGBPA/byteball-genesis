@@ -1,14 +1,14 @@
 /*jslint node: true */
 "use strict";
 const fs = require('fs');
-const db = require('byteballcore/db.js');
-const eventBus = require('byteballcore/event_bus.js');
-const headlessWallet = require('headless-byteball/start.js');
-const constants = require('byteballcore/constants.js');
-const objectHash = require('byteballcore/object_hash.js');
+const db = require('dag-pizza-dough/db.js');
+const eventBus = require('dag-pizza-dough/event_bus.js');
+const headlessWallet = require('dag-pizza-headless/start.js');
+const constants = require('dag-pizza-dough/constants.js');
+const objectHash = require('dag-pizza-dough/object_hash.js');
 const Mnemonic = require('bitcore-mnemonic');
-const ecdsaSig = require('byteballcore/signature.js');
-const validation = require('byteballcore/validation.js');
+const ecdsaSig = require('dag-pizza-dough/signature.js');
+const validation = require('dag-pizza-dough/validation.js');
 
 const configPath = "../wallets/";
 
@@ -49,7 +49,7 @@ function getDerivedKey(mnemonic_phrase, passphrase, account, is_change, address_
 }
 
 
-// signer that uses witness address
+// signer that uses genesis address
 let signer = {
     readSigningPaths: function(conn, address, handleLengthsBySigningPaths) {
         handleLengthsBySigningPaths({r: constants.SIG_LENGTH});
@@ -75,8 +75,8 @@ let signer = {
 
 
 function createBlackbytes(onDone){
-	let composer = require('byteballcore/composer.js');
-	let network = require('byteballcore/network.js');
+	let composer = require('dag-pizza-dough/composer.js');
+	let network = require('dag-pizza-dough/network.js');
 
 	let callbacks = composer.getSavingCallbacks({
 		ifNotEnoughFunds: onError,

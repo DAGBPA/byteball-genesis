@@ -14,16 +14,16 @@ cd `dirname $0`
 
 pm2 delete all
 
-rm "$APPDIR"/byteball-hub/byteball*
-rm "$APPDIR"/byteball-explorer/byteball*
+rm "$APPDIR"/dag-pizza-hub/dagpizza*
+rm "$APPDIR"/dag-pizza-explorer/dagpizza*
 
-rm "$APPDIR"/wallet-genesis/byteball*
-rm "$APPDIR"/wallet-paying/byteball*
-rm "$APPDIR"/wallet-payee/byteball*
+rm "$APPDIR"/wallet-genesis/dagpizza*
+rm "$APPDIR"/wallet-paying/dagpizza*
+rm "$APPDIR"/wallet-payee/dagpizza*
 
 for i in {1..12}
 do
-    rm "$APPDIR"/wallet-witness$i/byteball*
+    rm "$APPDIR"/wallet-chef$i/dagpizza*
 done
 
 echo All database has been deleted

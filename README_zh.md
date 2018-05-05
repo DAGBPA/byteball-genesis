@@ -1,4 +1,4 @@
-此文档用于重新部署一套Byteball网络，包括生成配置文件、创建创世单元、开启Hub、Witness以及Explorer节点。相关代码已在Ubuntu及MacOS上测试通过。
+此文档用于部署一套DAG Pizza网络，包括生成配置文件、创建创世单元、开启Chef、Hub以及Explorer节点。相关代码已在Ubuntu及MacOS上测试通过。
 
 主要步骤如下：
 
@@ -36,24 +36,24 @@ $ npm install node-gyp -g
 
 ## 下载相关代码
 
-下载`byteball-genesis`代码：
+下载`dag-pizza-genesis`代码：
 
 ```bash
-$ git checkout https://github.com/guantau/byteball-genesis
+$ git checkout https://github.com/DAGBPA/dag-pizza-genesis
 $ cd genesis
 $ npm install
 ```
 
-在目录`src`中下载`byteball`的`explorer`、`hub`及`witness`代码：
+在目录`src`中下载`dag-pizza-chef`、`dag-pizza-explorer`及`dag-pizza-hub`代码：
 
 ```bash
 $ cd src/
-$ git checkout https://github.com/byteball/byteball-explorer
-$ cd byteball-explorer; npm install
-$ git checkout https://github.com/byteball/byteball-hub
-$ cd byteball-hub; npm install
-$ git checkout https://github.com/byteball/byteball-witness
-$ cd byteball-witness; npm install
+$ git checkout https://github.com/DAGBPA/dag-pizza-explorer
+$ cd dag-pizza-explorer; npm install
+$ git checkout https://github.com/DAGBPA/dag-pizza-hub
+$ cd dag-pizza-hub; npm install
+$ git checkout https://github.com/DAGBPA/dag-pizza-chef
+$ cd dag-pizza-chef; npm install
 ```
 
 ## 生成配置文件
@@ -66,10 +66,10 @@ $ npm run init
 
 ![](http://oc7urqs4c.bkt.clouddn.com/2018-04-01-byteball-genesis-wallets.png)
 
-打印`witness`地址：
+打印`chef`地址：
 
 ```bash
-$ cat witness-address.json
+$ cat chef-address.json
 ```
 
 修改`conf`目录下的`explorer-conf.js`和`hub-conf.js`，将上述地址填入`exports.initial_witnesses`。

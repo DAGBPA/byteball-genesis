@@ -5,17 +5,17 @@ let fs = require('fs');
 let crypto = require('crypto');
 let Mnemonic = require('bitcore-mnemonic');
 let Bitcore = require('bitcore-lib');
-let objectHash = require('byteballcore/object_hash');
-let constants = require('byteballcore/constants');
+let objectHash = require('dag-pizza-dough/object_hash');
+let constants = require('dag-pizza-dough/constants');
 
 
 // create 4 types of config files in configPath
-// witness: wallet-witness1~12, witness-config.json
+// chef: wallet-chef1~12, chef-config.json
 // genesis: wallet-genesis, genesis-config.json
 // paying:  wallet-paying, paying-config.json
 // payee:   wallet-payee, payee-config.json
-let witnessConfigArray = [];
-let witnessAddressArray = [];
+let chefConfigArray = [];
+let chefAddressArray = [];
 const configPath = "../wallets/";
 
 
@@ -77,11 +77,11 @@ function createWallet() {
 
 
 // create config files for wallet
-function createConfig(deviceName, isWitness) {
+function createConfig(deviceName, isChef) {
 	// create the wallet
 	let wallet = createWallet();
-	if (isWitness) {
-		witnessConfigArray.push(wallet);
+	if (isChef) {
+		chefConfigArray.push(wallet);
 	}
 
 	// create directory
@@ -105,15 +105,15 @@ function createConfig(deviceName, isWitness) {
 	return wallet;
 }
 
-// create config files for witnesses
-console.log("> Create wallets for witness...");
+// create config files for chefs
+console.log("> Create wallets for chef...");
 for (let i = 0; i < constants.COUNT_WITNESSES; i++) {
-	let wallet = createConfig("wallet-witness"+(i+1), 1);
-	witnessAddressArray.push(wallet['address']);
+	let wallet = createConfig("wallet-chef"+(i+1), 1);
+	chefAddressArray.push(wallet['address']);
 }
-fs.writeFile(configPath+"witness-config.json", JSON.stringify(witnessConfigArray, null, '\t'), 'utf8', onError);
-fs.writeFile(configPath+"witness-address.json", JSON.stringify(witnessAddressArray.sort(), null, '\t'), 'utf8', onError);
-console.log(witnessAddressArray.sort());
+fs.writeFile(configPath+"chef-config.json", JSON.stringify(chefConfigArray, null, '\t'), 'utf8', onError);
+fs.writeFile(configPath+"chef-address.json", JSON.stringify(chefAddressArray.sort(), null, '\t'), 'utf8', onError);
+console.log(chefAddressArray.sort());
 
 // create config files for genesis address
 console.log("> Create wallets for genesis...");

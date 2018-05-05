@@ -1,7 +1,7 @@
 {
   "name": "wallet-paying",
   "version": "1.0.0",
-  "description": "Setup byteball from genesis unit",
+  "description": "Setup DAG Pizza from genesis unit",
   "main": "start.js",
   "scripts": {
     "init": "node init.js",
@@ -17,7 +17,7 @@
     "secp256k1": "secp256k1/js"
   },
   "dependencies": {
-    "byteballcore": "git+https://github.com/byteball/byteballcore.git",
-    "headless-byteball": "git+https://github.com/byteball/headless-byteball.git"
+    "dag-pizza-dough": "git+https://github.com/DAGBPA/dag-pizza-dough.git",
+    "dag-pizza-headless": "git+https://github.com/DAGBPA/dag-pizza-headless.git"
   }
 }

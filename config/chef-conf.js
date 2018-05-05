@@ -7,11 +7,11 @@ exports.bServeAsHub = false;
 exports.bLight = false;
 
 exports.storage = 'sqlite';
-exports.admin_email='witness';
-exports.from_email='witness';
+exports.admin_email='chef';
+exports.from_email='chef';
 exports.WS_PROTOCOL = 'ws://';
 exports.hub = '127.0.0.1:6611';
-exports.deviceName = 'Witness';
+exports.deviceName = 'chef';
 exports.permanent_pairing_secret = 'randomstring';
 exports.control_addresses = ['DEVICE ALLOWED TO CHAT'];
 exports.payout_address = 'WHERE THE MONEY CAN BE SENT TO';
@@ -22,4 +22,4 @@ exports.MIN_AVAILABLE_WITNESSINGS = 100;
 
 exports.KEYS_FILENAME = 'keys.json';
 
-console.log('finished witness conf');
+console.log('finished chef conf');

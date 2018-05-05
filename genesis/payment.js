@@ -1,8 +1,8 @@
 /*jslint node: true */
 "use strict";
 const fs = require('fs');
-const headlessWallet = require('headless-byteball/start.js');
-const eventBus = require('byteballcore/event_bus.js');
+const headlessWallet = require('dag-pizza-headless/start.js');
+const eventBus = require('dag-pizza-dough/event_bus.js');
 
 const configPath = "../wallets/";
 const payingConfigFile = configPath+"paying-config.json";
@@ -27,8 +27,8 @@ function loadWalletConfig(onDone) {
 }
 
 function createPayment() {
-	let composer = require('byteballcore/composer.js');
-	let network = require('byteballcore/network.js');
+	let composer = require('dag-pizza-dough/composer.js');
+	let network = require('dag-pizza-dough/network.js');
 	let callbacks = composer.getSavingCallbacks({
 		ifNotEnoughFunds: onError,
 		ifError: onError,

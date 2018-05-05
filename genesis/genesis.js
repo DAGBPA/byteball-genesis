@@ -2,27 +2,27 @@
 "use strict";
 
 const fs = require('fs');
-const db = require('byteballcore/db.js');
-const eventBus = require('byteballcore/event_bus.js');
-const headlessWallet = require('headless-byteball/start.js');
-const constants = require('byteballcore/constants.js');
-const objectHash = require('byteballcore/object_hash.js');
+const db = require('dag-pizza-dough/db.js');
+const eventBus = require('dag-pizza-dough/event_bus.js');
+const headlessWallet = require('dag-pizza-headless/start.js');
+const constants = require('dag-pizza-dough/constants.js');
+const objectHash = require('dag-pizza-dough/object_hash.js');
 const Mnemonic = require('bitcore-mnemonic');
-const ecdsaSig = require('byteballcore/signature.js');
-const validation = require('byteballcore/validation.js');
+const ecdsaSig = require('dag-pizza-dough/signature.js');
+const validation = require('dag-pizza-dough/validation.js');
 
 const configPath = "../wallets/";
 
 
-const witness_budget = 1000000;
-const witness_budget_count = 8;
+const chef_budget = 1000000;
+const chef_budget_count = 8;
 
-const witnessConfigFile = configPath+"witness-config.json";
+const chefConfigFile = configPath+"chef-config.json";
 const genesisConfigFile = configPath+"genesis-config.json";
 const payingConfigFile = configPath+"paying-config.json";
 const payeeConfigFile = configPath+"payee-config.json";
 
-let witnesses = [];
+let chefs = [];
 let genesis_address;
 let paying_address;
 let payee_address;
@@ -53,8 +53,8 @@ function loadWalletConfig(onDone) {
     wallet = JSON.parse(data);
     paying_address = wallet['address'];
     walletConfigData[wallet['address']] = wallet;
-    for(let i = 0; i < witness_budget_count; ++i) {
-        arrOutputs.push({ address: wallet['address'], amount: witness_budget });
+    for(let i = 0; i < chef_budget_count; ++i) {
+        arrOutputs.push({ address: wallet['address'], amount: chef_budget });
     }
 
     // Read payee config file
@@ -62,23 +62,23 @@ function loadWalletConfig(onDone) {
     wallet = JSON.parse(data);
     payee_address = wallet['address'];
     walletConfigData[wallet['address']] = wallet;
-    for(let i = 0; i < witness_budget_count; ++i) {
-        arrOutputs.push({ address: wallet['address'], amount: witness_budget });
+    for(let i = 0; i < chef_budget_count; ++i) {
+        arrOutputs.push({ address: wallet['address'], amount: chef_budget });
     }
 
-    // Read witness config file
-    data = fs.readFileSync(witnessConfigFile, 'utf8');    
+    // Read chef config file
+    data = fs.readFileSync(chefConfigFile, 'utf8');    
     let wallets = JSON.parse(data);
 
     for (let wallet of wallets) {
         walletConfigData[wallet['address']] = wallet;
-        witnesses.push(wallet['address']);
+        chefs.push(wallet['address']);
 
-        for(let i = 0; i < witness_budget_count; ++i) {
-            arrOutputs.push({address: wallet['address'], amount: witness_budget});
+        for(let i = 0; i < chef_budget_count; ++i) {
+            arrOutputs.push({address: wallet['address'], amount: chef_budget});
         }
     }
-    witnesses = witnesses.sort();
+    chefs = chefs.sort();
     onDone();
 }
 
@@ -97,7 +97,7 @@ function getDerivedKey(mnemonic_phrase, passphrase, account, is_change, address_
 }
 
 
-// signer that uses witness address
+// signer that uses chef address
 let signer = {
     readSigningPaths: function(conn, address, handleLengthsBySigningPaths) {
         handleLengthsBySigningPaths({r: constants.SIG_LENGTH});
@@ -123,8 +123,8 @@ let signer = {
 
 
 function createGenesisUnit(onDone) {
-    let composer = require('byteballcore/composer.js');
-    let network = require('byteballcore/network.js');
+    let composer = require('dag-pizza-dough/composer.js');
+    let network = require('dag-pizza-dough/network.js');
 
     let savingCallbacks = composer.getSavingCallbacks({
         ifNotEnoughFunds: onError,
@@ -138,8 +138,8 @@ function createGenesisUnit(onDone) {
     composer.setGenesis(true);
 
     let genesisUnitInput = {
-        witnesses: witnesses,
-        paying_addresses: witnesses,
+        witnesses: chefs,
+        paying_addresses: chefs,
         outputs: arrOutputs,
         signer: signer,
         callbacks: {
@@ -166,9 +166,9 @@ eventBus.once('headless_wallet_ready', function() {
     loadWalletConfig(function() {
         createGenesisUnit(function(genesisHash) {
             console.log("\n\nGenesis unit: " + genesisHash+ "\n\n");
-            let placeholders = Array.apply(null, Array(witnesses.length)).map(function(){ return '(?)'; }).join(',');
-            db.query("REPLACE INTO my_witnesses (address) VALUES "+placeholders, witnesses, function() {
-                console.log('inserted witnesses');
+            let placeholders = Array.apply(null, Array(chefs.length)).map(function(){ return '(?)'; }).join(',');
+            db.query("REPLACE INTO my_witnesses (address) VALUES "+placeholders, chefs, function() {
+                console.log('inserted chefs');
             });
         });
     });

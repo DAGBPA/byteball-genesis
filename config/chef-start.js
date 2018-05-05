@@ -1,13 +1,13 @@
 /*jslint node: true */
 "use strict";
-var conf = require('byteballcore/conf.js');
-var db = require('byteballcore/db.js');
-var storage = require('byteballcore/storage.js');
-var eventBus = require('byteballcore/event_bus.js');
-var mail = require('byteballcore/mail.js');
-var headlessWallet = require('headless-byteball');
-var desktopApp = require('byteballcore/desktop_app.js');
-var objectHash = require('byteballcore/object_hash.js');
+var conf = require('dag-pizza-dough/conf.js');
+var db = require('dag-pizza-dough/db.js');
+var storage = require('dag-pizza-dough/storage.js');
+var eventBus = require('dag-pizza-dough/event_bus.js');
+var mail = require('dag-pizza-dough/mail.js');
+var headlessWallet = require('dag-pizza-headless');
+var desktopApp = require('dag-pizza-dough/desktop_app.js');
+var objectHash = require('dag-pizza-dough/object_hash.js');
 
 var WITNESSING_COST = 600; // size of typical witnessing unit
 var my_address;
@@ -45,8 +45,8 @@ function witness(onDone){
 		notifyAdminAboutFailedWitnessing(err);
 		setTimeout(onDone, 60000); // pause after error
 	}
-	var network = require('byteballcore/network.js');
-	var composer = require('byteballcore/composer.js');
+	var network = require('dag-pizza-dough/network.js');
+	var composer = require('dag-pizza-dough/composer.js');
 	if (!network.isConnected()){
 		console.log('not connected, skipping');
 		return onDone();
