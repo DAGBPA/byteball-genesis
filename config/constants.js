@@ -3,15 +3,15 @@
 
 exports.COUNT_WITNESSES = 12;
 exports.MAX_WITNESS_LIST_MUTATIONS = 1;
-exports.TOTAL_WHITEBYTES = 1e15;
+exports.TOTAL_PIZZA = 2.1e16;
 exports.MAJORITY_OF_WITNESSES = (exports.COUNT_WITNESSES%2===0) ? (exports.COUNT_WITNESSES/2+1) : Math.ceil(exports.COUNT_WITNESSES/2);
 exports.COUNT_MC_BALLS_FOR_PAID_WITNESSING = 100;
 
 exports.version = '1.0';
 exports.alt = '1';
 
-exports.GENESIS_UNIT = 'PgKvMdyxdxvVT5oVFt8kcEb9V7M2PkRrX9cvyFkNCGM=';
-exports.BLACKBYTES_ASSET = '1eSCLI4CwRE6wck/gsRd1FjtPPM5t35b3V3zqJoS+8E=';
+exports.GENESIS_UNIT = (exports.alt === '2' && exports.version === '1.0t') ? 'R1gGUc6m/KM1ga058GS1TylLI1O3MpfsCOyd0mm1HfY=' : 'fOfmdDEJKSW80Y1OjANZOcjqSdm/ngRTW5ztve8e3sc=';
+exports.NOODLES_ASSET = (exports.alt === '2' && exports.version === '1.0t') ? 'XyMQFRw9JwZkTsEx41raqZyCo05hX6XWcJJSOtyw1sY=' : 'PZTlobyWqopP+SnFgmeYfXKr/94+XGIojfYjz+j8eS4=';
 
 exports.HASH_LENGTH = 44;
 exports.PUBKEY_LENGTH = 44;
@@ -30,7 +30,7 @@ exports.MAX_ATTESTORS_PER_ASSET = 64;
 exports.MAX_DATA_FEED_NAME_LENGTH = 64;
 exports.MAX_DATA_FEED_VALUE_LENGTH = 64;
 exports.MAX_AUTHENTIFIER_LENGTH = 4096;
-exports.MAX_CAP = 9e15;
+exports.MAX_CAP = 9e16;
 exports.MAX_COMPLEXITY = 100;
 
 exports.MAX_PROFILE_FIELD_LENGTH = 50;

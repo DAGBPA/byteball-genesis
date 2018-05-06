@@ -30,7 +30,7 @@ let payee_address;
 let walletConfigData = {};
 let arrOutputs = [];
 
-const creation_message = "In blockchain we trust";
+const creation_message = "In pizza we eat";
 
 
 function onError(err) {

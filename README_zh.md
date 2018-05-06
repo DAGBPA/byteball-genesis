@@ -77,18 +77,18 @@ $ cat chef-address.json
 ## 创建创世单元
 
 ```bash
-$ npm run genesis
+$ npm run pizza
 ```
 
 运行后将会输出`Genesis unit: `及相应的创世单元hash值，然后终止运行。修改`conf`目录下的`constants.js`，将创世单元hash值填入`exports.GENESIS_UNIT`。
 
-## 创建BlackBytes
+## 创建隐私资产
 
 ```bash
-$ npm run blackbytes
+$ npm run noodles
 ```
 
-运行后将输出`Blackbytes asset created:`及相应hash值，终止运行。修改`conf`目录下的`constants.js`，将单元hash值填入`exports.BLACKBYTES_ASSET`。
+运行后将输出`NOODLES asset created:`及相应hash值，终止运行。修改`conf`目录下的`constants.js`，将单元hash值填入`exports.NOODLES_ASSET`。
 
 ## 部署相关节点
 
@@ -115,18 +115,18 @@ $ pm2 logs hub
 ## 发布创世单元
 
 ```bash
-$ npm run genesis
+$ npm run pizza
 ```
 
 运行成功后，可以在`http://127.0.0.1:4000/`上查看创世单元。
 
-## 发布BlackBytes
+## 发布隐私资产
 
 ```bash
-$ npm run blackbytes
+$ npm run noodles
 ```
 
-运行成功后，可以在`http://127.0.0.1:4000/`上查看BlackBytes单元。
+运行成功后，可以在`http://127.0.0.1:4000/`上查看隐私资产单元。
 
 
 ## 开启支付测试

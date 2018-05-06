@@ -5,8 +5,8 @@
   "main": "start.js",
   "scripts": {
     "init": "node init.js",
-    "genesis": "node genesis.js",
-    "blackbytes": "node blackbytes.js",
+    "pizza": "node pizza.js",
+    "noodles": "node noodles.js",
     "payment": "node payment.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
