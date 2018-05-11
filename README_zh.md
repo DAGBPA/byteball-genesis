@@ -137,3 +137,10 @@ $ npm run pay_pizza
 
 开启支付测试，每30s发起一次支付（**注意：需要等待第1个单元到达稳定后开启**）。
 
+## 支付隐私资产
+
+```bash
+$ npm run pay_noodles
+```
+
+注意需要有足够的`header_commission`和`witnessing`才可以开启支付。

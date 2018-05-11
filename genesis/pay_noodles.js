@@ -42,7 +42,7 @@ function createNoodlesPayment(){
 		fee_paying_addresses: [genesis_address],
 		change_address: genesis_address,
 		to_address: "Y4CBGPKWYXMTQ7LGDVD3EBL3CO54VPKZ",
-		amount: 21110000000000000-2500, 
+		amount: 21111000000000000, 
 		tolerance_plus: 0, 
 		tolerance_minus: 0, 
 		signer: headlessWallet.signer, 
