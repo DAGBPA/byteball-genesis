@@ -12,8 +12,6 @@ let constants = require('dag-pizza-dough/constants');
 // create 4 types of config files in configPath
 // chef: wallet-chef1~12, chef-config.json
 // genesis: wallet-genesis, genesis-config.json
-// paying:  wallet-paying, paying-config.json
-// payee:   wallet-payee, payee-config.json
 let chefConfigArray = [];
 let chefAddressArray = [];
 const configPath = "../wallets/";
@@ -119,15 +117,5 @@ console.log(chefAddressArray.sort());
 console.log("> Create wallets for genesis...");
 let wallet = createConfig("wallet-genesis", 0);
 fs.writeFile(configPath+"genesis-config.json", JSON.stringify(wallet, null, '\t'), 'utf8', onError);
-
-// create config files for paying address
-console.log("> Create wallets for paying...");
-wallet = createConfig("wallet-paying", 0);
-fs.writeFile(configPath+"paying-config.json", JSON.stringify(wallet, null, '\t'), 'utf8', onError);
-
-// create config files for payee address
-console.log("> Create wallets for payee...");
-wallet = createConfig("wallet-payee", 0);
-fs.writeFile(configPath+"payee-config.json", JSON.stringify(wallet, null, '\t'), 'utf8', onError);
 
 console.log("Done!");

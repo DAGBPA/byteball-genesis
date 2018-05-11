@@ -9,9 +9,10 @@
   "devDependencies": {},
   "scripts": {
     "init": "npm --prefix genesis run init",
-    "pizza": "bin/wallet.sh; npm --prefix genesis run pizza",
-    "noodles": "bin/constant.sh; npm --prefix genesis run noodles",
-    "payment": "npm --prefix genesis run payment",
+    "create_pizza": "bin/wallet.sh; npm --prefix genesis run create_pizza",
+    "create_noodles": "bin/constant.sh; npm --prefix genesis run create_noodles",
+    "pay_pizza": "npm --prefix genesis run pay_pizza",
+    "pay_noodles": "npm --prefix genesis run pay_noodles",
     "deploy": "bin/deploy.sh",
     "start": "bin/start.sh",
     "clean": "bin/clean.sh",

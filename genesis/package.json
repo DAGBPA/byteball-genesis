@@ -1,13 +1,14 @@
 {
-  "name": "wallet-paying",
+  "name": "wallet-genesis",
   "version": "1.0.0",
   "description": "Setup DAG Pizza from genesis unit",
   "main": "start.js",
   "scripts": {
     "init": "node init.js",
-    "pizza": "node pizza.js",
-    "noodles": "node noodles.js",
-    "payment": "node payment.js",
+    "create_pizza": "node create_pizza.js",
+    "create_noodles": "node create_noodles.js",
+    "pay_pizza": "node pay_pizza.js",
+    "pay_noodles": "node pay_noodles.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "guantau",

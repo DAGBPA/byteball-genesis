@@ -77,7 +77,7 @@ $ cat chef-address.json
 ## 创建创世单元
 
 ```bash
-$ npm run pizza
+$ npm run create_pizza
 ```
 
 运行后将会输出`Genesis unit: `及相应的创世单元hash值，然后终止运行。修改`conf`目录下的`constants.js`，将创世单元hash值填入`exports.GENESIS_UNIT`。
@@ -85,7 +85,7 @@ $ npm run pizza
 ## 创建隐私资产
 
 ```bash
-$ npm run noodles
+$ npm run create_noodles
 ```
 
 运行后将输出`NOODLES asset created:`及相应hash值，终止运行。修改`conf`目录下的`constants.js`，将单元hash值填入`exports.NOODLES_ASSET`。
@@ -115,7 +115,7 @@ $ pm2 logs hub
 ## 发布创世单元
 
 ```bash
-$ npm run pizza
+$ npm run create_pizza
 ```
 
 运行成功后，可以在`http://127.0.0.1:4000/`上查看创世单元。
@@ -123,7 +123,7 @@ $ npm run pizza
 ## 发布隐私资产
 
 ```bash
-$ npm run noodles
+$ npm run create_noodles
 ```
 
 运行成功后，可以在`http://127.0.0.1:4000/`上查看隐私资产单元。
@@ -132,7 +132,7 @@ $ npm run noodles
 ## 开启支付测试
 
 ```bash
-$ npm run payment
+$ npm run pay_pizza
 ```
 
 开启支付测试，每30s发起一次支付（**注意：需要等待第1个单元到达稳定后开启**）。

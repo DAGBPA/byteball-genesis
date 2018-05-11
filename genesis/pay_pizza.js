@@ -5,23 +5,17 @@ const headlessWallet = require('dag-pizza-headless/start.js');
 const eventBus = require('dag-pizza-dough/event_bus.js');
 
 const configPath = "../wallets/";
-const payingConfigFile = configPath+"paying-config.json";
-const payeeConfigFile = configPath+"payee-config.json";
-let paying_address;
-let payee_address;
+const genesisConfigFile = configPath+"genesis-config.json";
+let genesis_address;
 
 function onError(err){
 	throw Error(err);
 }
 
 function loadWalletConfig(onDone) {
-	let data = fs.readFileSync(payingConfigFile, 'utf8');
+	let data = fs.readFileSync(genesisConfigFile, 'utf8');
 	let wallet = JSON.parse(data);
-    paying_address = wallet['address'];
-
-	data = fs.readFileSync(payeeConfigFile, 'utf8');
-	wallet = JSON.parse(data);
-	payee_address = wallet['address'];
+    genesis_address = wallet['address'];
 
 	onDone();
 }
@@ -38,10 +32,10 @@ function createPayment() {
 	});
 
 	let arrOutputs = [
-		{address: paying_address, amount: 0},      // the change
-		{address: payee_address, amount: 100}  // the receiver
+		{address: genesis_address, amount: 0},      // the change
+		{address: 'Y4CBGPKWYXMTQ7LGDVD3EBL3CO54VPKZ', amount: 10000}  // the receiver
 	];
-	composer.composePaymentJoint([paying_address], arrOutputs, headlessWallet.signer, callbacks);
+	composer.composePaymentJoint([genesis_address], arrOutputs, headlessWallet.signer, callbacks);
 }
 
 eventBus.on('headless_wallet_ready', function() {

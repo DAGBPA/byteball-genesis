@@ -1,5 +1,6 @@
 /*jslint node: true */
 "use strict";
+
 const fs = require('fs');
 const db = require('dag-pizza-dough/db.js');
 const eventBus = require('dag-pizza-dough/event_bus.js');
@@ -12,16 +13,26 @@ const validation = require('dag-pizza-dough/validation.js');
 
 const configPath = "../wallets/";
 
+
+const chef_budget = 1000000;
+const chef_budget_count = 8;
+
+const chefConfigFile = configPath+"chef-config.json";
 const genesisConfigFile = configPath+"genesis-config.json";
 
+let chefs = [];
 let genesis_address;
+
 let walletConfigData = {};
+let arrOutputs = [];
+
+const creation_message = "In pizza we eat";
 
 
 function onError(err) {
-    if (err) {
-        throw Error(err);
-    }
+	if (err) {
+		throw Error(err);
+	}
 }
 
 
@@ -31,6 +42,21 @@ function loadWalletConfig(onDone) {
     let wallet = JSON.parse(data);
     genesis_address = wallet['address'];
     walletConfigData[wallet['address']] = wallet;
+    arrOutputs.push({ address: genesis_address, amount: 0 });
+
+    // Read chef config file
+    data = fs.readFileSync(chefConfigFile, 'utf8');    
+    let wallets = JSON.parse(data);
+
+    for (let wallet of wallets) {
+        walletConfigData[wallet['address']] = wallet;
+        chefs.push(wallet['address']);
+
+        for(let i = 0; i < chef_budget_count; ++i) {
+            arrOutputs.push({address: wallet['address'], amount: chef_budget});
+        }
+    }
+    chefs = chefs.sort();
     onDone();
 }
 
@@ -49,7 +75,7 @@ function getDerivedKey(mnemonic_phrase, passphrase, account, is_change, address_
 }
 
 
-// signer that uses genesis address
+// signer that uses chef address
 let signer = {
     readSigningPaths: function(conn, address, handleLengthsBySigningPaths) {
         handleLengthsBySigningPaths({r: constants.SIG_LENGTH});
@@ -68,61 +94,60 @@ let signer = {
             0,
             wallet["is_change"],
             wallet["address_index"]
-        );
+          );
         handleSignature(null, ecdsaSig.sign(buf_to_sign, derivedPrivateKey));
     }
 };
 
 
-function createNoodles(onDone){
-	let composer = require('dag-pizza-dough/composer.js');
-	let network = require('dag-pizza-dough/network.js');
+function createGenesisUnit(onDone) {
+    let composer = require('dag-pizza-dough/composer.js');
+    let network = require('dag-pizza-dough/network.js');
 
-	let callbacks = composer.getSavingCallbacks({
-		ifNotEnoughFunds: onError,
-		ifError: onError,
-		ifOk: function(objJoint){
-			network.broadcastJoint(objJoint);
-			onDone(objJoint.unit.unit);
-		}
-	});
-	let asset = {
-		cap: (1+2*2+5+10+20*2+50+100+200*2+500+1000+2000*2+5000+10000+20000*2+50000+100000)*1e11,
-		is_private: true,
-		is_transferrable: true,
-		auto_destroy: false,
-		fixed_denominations: true,
-		issued_by_definer_only: true,
-		cosigned_by_definer: false,
-		spender_attested: false,
-		denominations: [
-			{denomination: 1, count_coins: 1e11},
-			{denomination: 2, count_coins: 2e11},
-			{denomination: 5, count_coins: 1e11},
-			{denomination: 10, count_coins: 1e11},
-			{denomination: 20, count_coins: 2e11},
-			{denomination: 50, count_coins: 1e11},
-			{denomination: 100, count_coins: 1e11},
-			{denomination: 200, count_coins: 2e11},
-			{denomination: 500, count_coins: 1e11},
-			{denomination: 1000, count_coins: 1e11},
-			{denomination: 2000, count_coins: 2e11},
-			{denomination: 5000, count_coins: 1e11},
-			{denomination: 10000, count_coins: 1e11},
-			{denomination: 20000, count_coins: 2e11},
-			{denomination: 50000, count_coins: 1e11},
-			{denomination: 100000, count_coins: 1e11}
-		]
-	};
-	composer.composeAssetDefinitionJoint(genesis_address, asset, signer, callbacks);
+    let savingCallbacks = composer.getSavingCallbacks({
+        ifNotEnoughFunds: onError,
+        ifError: onError,
+        ifOk: function(objJoint) {
+            network.broadcastJoint(objJoint);
+            onDone(objJoint.unit.unit);
+        }
+    });
+
+    composer.setGenesis(true);
+
+    let genesisUnitInput = {
+        witnesses: chefs,
+        paying_addresses: chefs,
+        outputs: arrOutputs,
+        signer: signer,
+        callbacks: {
+            ifNotEnoughFunds: onError,
+            ifError: onError,
+            ifOk: function(objJoint, assocPrivatePayloads, composer_unlock) {
+                constants.GENESIS_UNIT = objJoint.unit.unit;
+                savingCallbacks.ifOk(objJoint, assocPrivatePayloads, composer_unlock);
+            }
+        },
+        messages: [{
+            app: "text",
+            payload_location: "inline",
+            payload_hash: objectHash.getBase64Hash(creation_message),
+            payload: creation_message
+        }]
+    };
+    composer.composeJoint( genesisUnitInput );
 }
 
+
 eventBus.once('headless_wallet_ready', function() {
+    console.log("> Create genesis unit");
     loadWalletConfig(function() {
-        createNoodles(function(assetHash) {
-            console.log("noodles asset created: " + assetHash);
-            //process.exit(0);
+        createGenesisUnit(function(genesisHash) {
+            console.log("\n\nGenesis unit: " + genesisHash+ "\n\n");
+            let placeholders = Array.apply(null, Array(chefs.length)).map(function(){ return '(?)'; }).join(',');
+            db.query("REPLACE INTO my_witnesses (address) VALUES "+placeholders, chefs, function() {
+                console.log('inserted chefs');
+            });
         });
     });
 });
-

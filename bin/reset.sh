@@ -18,8 +18,6 @@ rm "$APPDIR"/dag-pizza-hub/dagpizza*
 rm "$APPDIR"/dag-pizza-explorer/dagpizza*
 
 rm "$APPDIR"/wallet-genesis/dagpizza*
-rm "$APPDIR"/wallet-paying/dagpizza*
-rm "$APPDIR"/wallet-payee/dagpizza*
 
 for i in {1..12}
 do
