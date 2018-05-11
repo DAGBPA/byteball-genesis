@@ -10,8 +10,8 @@ exports.COUNT_MC_BALLS_FOR_PAID_WITNESSING = 100;
 exports.version = '1.0';
 exports.alt = '1';
 
-exports.GENESIS_UNIT = (exports.alt === '2' && exports.version === '1.0t') ? 'R1gGUc6m/KM1ga058GS1TylLI1O3MpfsCOyd0mm1HfY=' : 'GgtS6HiNdvW/DcRL1KWE2Z0L/MUVEaK4sj/WqHvlR6Q=';
-exports.NOODLES_ASSET = (exports.alt === '2' && exports.version === '1.0t') ? 'XyMQFRw9JwZkTsEx41raqZyCo05hX6XWcJJSOtyw1sY=' : '7WxYBlSIBlHRrkWqFE96QTyXIXTEEujj9h3qG5n/uOo=';
+exports.GENESIS_UNIT = (exports.alt === '2' && exports.version === '1.0t') ? 'GgtS6HiNdvW/DcRL1KWE2Z0L/MUVEaK4sj/WqHvlR6Q=' : '7H2hxaLCz3ivrWWjjbhUlrfhbEEX5TiaxvML0WFrlXs=';
+exports.NOODLES_ASSET = (exports.alt === '2' && exports.version === '1.0t') ? '7WxYBlSIBlHRrkWqFE96QTyXIXTEEujj9h3qG5n/uOo=' : 'XYzDYA7dJIXDTJoXHaxoYsYLtNutoGnJANNEz4ssCrg=';
 
 exports.HASH_LENGTH = 44;
 exports.PUBKEY_LENGTH = 44;
